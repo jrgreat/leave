@@ -29,6 +29,7 @@ def quick_sort(data):
 if __name__=="__main__":
     the_list = [6,2,3,8,0,1,9,7]
     #bubble_sort(the_list)
+    
     print(quick_sort(the_list))
 
 
