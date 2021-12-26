@@ -38,10 +38,24 @@ def insert_sort(data):
     print(data)
 
 
+def select_sort(data):
+    n = len(data)
+    for i in range(n):
+        min = data[i]
+        for j in range(i, n):
+            if data[j] < min:
+                min = data[j]
+                data[j], data[i] = data[i], data[j]
+    print(data)
+
+
+
+
+
 if __name__=="__main__":
     the_list = [6,2,3,8,0,1,9,7]
     #bubble_sort(the_list)
-    
-    insert_sort(the_list)
+    #insert_sort(the_list)
+    select_sort(the_list)
 
 
