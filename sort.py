@@ -9,6 +9,7 @@ def bubble_sort(to_be_sort_list):
 
     print(to_be_sort_list)
 
+
 def quick_sort(data):
     if len(data) >= 2:
         mid = data[len(data)//2]
@@ -25,11 +26,22 @@ def quick_sort(data):
         return data
 
 
+def insert_sort(data):
+    n = len(data)
+    for i in range(1,n):
+        temp = data[i]
+        j = i -1
+        while j>=0 and temp < data[j]:
+            data[j+1] = data[j]
+            j-=1
+        data[j+1] = temp
+    print(data)
+
 
 if __name__=="__main__":
     the_list = [6,2,3,8,0,1,9,7]
     #bubble_sort(the_list)
     
-    print(quick_sort(the_list))
+    insert_sort(the_list)
 
 
