@@ -49,13 +49,37 @@ def select_sort(data):
     print(data)
 
 
-
+def count_sort(data):
+    max = data[0]
+    min = data[0]
+    for num in data:
+        if num > max:
+            max = num
+        if num < min:
+            min = num
+    if max == min:
+        print(data)
+    c = list()
+    length = len(data)
+    for i in range(max+1):
+        c.append(0)
+    for num in data:
+        occurs = 0
+        for i in range(length):
+            if num == data[i]:
+                occurs += 1
+        c[num] = occurs
+    for index,value in enumerate(c):
+        while(value > 0):
+            print(index)
+            value -= 1
 
 
 if __name__=="__main__":
     the_list = [6,2,3,8,0,1,9,7]
     #bubble_sort(the_list)
     #insert_sort(the_list)
-    select_sort(the_list)
+    #select_sort(the_list)
+    count_sort(the_list)
 
 
