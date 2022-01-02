@@ -1,5 +1,5 @@
 def bubble_sort(to_be_sort_list):
-    if  not isinstance(to_be_sort_list, list):
+    if not isinstance(to_be_sort_list, list):
         raise Exception("not a list!")
     n = len(to_be_sort_list)
     for i in range(n):
@@ -74,12 +74,22 @@ def count_sort(data):
             print(index)
             value -= 1
 
+def insert_search(data, value, low, high):
+    mid = low + (value -data[low])/(data[high] - data[low]) * (high - low)
+    if data[mid] == value:
+        return mid
+    if (data[mid] > value):
+        return insert_search(data, value, low, mid-1)
+    if (data[mid] < value):
+        return insert_search(data, value, mid+1, high)
+
 
 if __name__=="__main__":
     the_list = [6,2,3,8,0,1,9,7]
     #bubble_sort(the_list)
     #insert_sort(the_list)
-    #select_sort(the_list)
-    count_sort(the_list)
+    select_sort(the_list)
+    #count_sort(the_list)
+    print(insert_search(the_list, 7, 0, 7))
 
 
