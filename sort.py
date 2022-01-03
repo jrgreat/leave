@@ -83,6 +83,15 @@ def insert_search(data, value, low, high):
     if (data[mid] < value):
         return insert_search(data, value, mid+1, high)
 
+def binary_search(data, value, low, high):
+    mid = (low + high)//2
+    if data[mid] == value:
+        return mid
+    elif data[mid] < value:
+        return binary_search(data, value, mid+1, high)
+    else:
+        return binary_search(data, value, low, mid-1)
+
 
 if __name__=="__main__":
     the_list = [6,2,3,8,0,1,9,7]
@@ -90,6 +99,7 @@ if __name__=="__main__":
     #insert_sort(the_list)
     select_sort(the_list)
     #count_sort(the_list)
-    print(insert_search(the_list, 7, 0, 7))
+    #print(insert_search(the_list, 7, 0, 7))
+    print(binary_search(the_list, 9, 0, len(the_list)))
 
 

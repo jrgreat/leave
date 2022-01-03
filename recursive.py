@@ -13,5 +13,14 @@ def jiecheng(x):
     else:
         return x*jiecheng(x-1)
 
+#hanoi
+def move(n, a, b, c):
+    if n==1:
+        print("move [{}] --> [{}]".format(a,c))
+    else:
+        move(n-1, a, c, b)
+        move(1, a, b, c)
+        move(n-1,b, a, c)
+
 if __name__=="__main__":
-    print(jiecheng(5))
+    move(3, 'x','y','z')
