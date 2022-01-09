@@ -45,3 +45,75 @@ from Teacher
 where Tname like '李%
 
 6. 查询学过「张三」老师授课的同学的信息
+select *
+from Student
+where sid in (
+select s.SId
+from Course c inner join SC s on c.CId=s.cid inner join Teacher t on t.TId = c.tid
+where t.Tname = '张三')
+
+7. 查询没有学全所有课程的同学的信息
+select s.*
+from Student s left join
+(select sid, count(cid) as courses
+from SC sc
+group by sc.sid
+) t
+on s.sid = t.sid
+where courses is NULL or courses <3
+
+8. 查询至少有一门课与学号为" 01 "的同学所学相同的同学的信息
+select *
+from Student
+where sid in
+(
+select DISTINCT sid
+from SC
+where cid in
+(select cid
+from SC
+where sid='01') and sid <>'01')
+
+9.查询和" 01 "号的同学学习的课程完全相同的其他同学的信息
+select s.*
+from Student s inner join
+(
+select sid, count(cid)
+from SC
+where sid <>'01'
+group by sid
+having count(cid)= (select count(cid) from SC where sid='01')) t
+on s.sid = t.sid
+
+10.查询没学过"张三"老师讲授的任一门课程的学生姓名
+select *
+from Student
+where sid not in (
+select sc.sid
+from Course c INNER join Teacher t on c.tid = t.TId INNER join SC sc on sc.cid = c.cid
+where t.Tname = '张三')
+
+11.查询两门及其以上不及格课程的同学的学号，姓名及其平均成绩
+select * from Student s
+inner join
+(select sid, AVG(score) as avg_score
+from SC
+where score < 60
+group by sid
+having count(cid) >= 2) t
+on s.sid = t.sid
+
+12. 检索" 01 "课程分数小于 60，按分数降序排列的学生信息
+select *
+from Student s inner join
+(select *
+from SC
+where cid='01' and score<60 order by score DESC) t
+on s.sid = t.sid
+
+13. 按平均成绩从高到低显示所有学生的所有课程的成绩以及平均成绩
+
+
+
+
+
