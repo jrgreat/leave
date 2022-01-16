@@ -113,6 +113,33 @@ on s.sid = t.sid
 
 13. 按平均成绩从高到低显示所有学生的所有课程的成绩以及平均成绩
 
+14. 查询各科成绩最高分、最低分和平均分：
+select cid,max(score),min(score),avg(score)
+from SC
+group by cid
+
+15. 按各科成绩进行排序，并显示排名， Score 重复时保留名次空缺
+SELECT Cid, score,
+Rank() OVER (PARTITION BY CID ORDER BY score DESC) ranking FROM SC;
+
+16. 查询学生的总成绩，并进行排名，总分重复时保留名次空缺
+SELECT sid, sum(score),
+Rank() OVER ( ORDER BY sum(score) DESC) ranking FROM SC group by sid
+
+17. 统计各科成绩各分数段人数：课程编号，课程名称，[100-85]，[85-70]，[70-60]，[60-0] 及所占百分比
+
+19. 查询每门课程被选修的学生数
+select cid,count(sid)
+from SC
+group by cid
+
+
+
+21.查询男生、女生人数
+select Ssex, count(*)
+from Student
+group by Ssex
+
 
 
 
