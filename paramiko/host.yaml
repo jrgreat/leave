@@ -1,0 +1,6 @@
+host:
+-
+  name: host_1
+  user: root
+  ip: 192.168.190.134
+  password: password
