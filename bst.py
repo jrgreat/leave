@@ -43,3 +43,11 @@ if __name__=="__main__":
     print(node.value)
 
 
+
+def average_weight(s):
+    char_list = s.split(' ')
+    sum = 0
+    for word in char_list:
+        sum = sum + len(word)
+    return sum / len(char_list)
+
