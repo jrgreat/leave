@@ -1,0 +1,11 @@
+MAIL_BOX_PASSWD="jdwbfcnkyrwobhij"
+MAIL_SERVER="smtp.qq.com"
+MAIL_USE_SSL=True
+MAIL_PORT=465
+MAIL_USERNAME="214365024@qq.com"
+MAIL_PASSWORD = "jdwbfcnkyrwobhij"
+MAIL_DEFAULT_SENDER="214365024@qq.com"
+
+DB_TABLE_EMAIL_CAPTCHA = "email_captcha"
+
+SECRET_KEY="1234567"

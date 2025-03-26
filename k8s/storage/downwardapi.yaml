@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: opaque-secret-env
+  name: opaque-secret-env-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: op-se-env-pod
+  template:
+    metadata:
+      labels:
+        app: op-se-env-pod
+    spec:
+        containers:
+        - name: myapp-container
+          image: wangyanglinux/myapp:v1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 80
+          env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace          
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: CPU_REQUEST
+            valueFrom:
+              resourceFieldRef:
+                resource: requests.cpu

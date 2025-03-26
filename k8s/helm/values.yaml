@@ -1,0 +1,8 @@
+replicaCount: 5
+
+image:
+  repository: wangyanglinux/myapp
+  tag: "v1.0"
+service:
+  type: NodePort
+  nodeport: 32321

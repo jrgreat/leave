@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-exec-pod
+spec:
+  containers:
+  - name: lifecycle-exec-container
+    image: wangyanglinux/myapp:v1.0
+    imagePullPolicy: IfNotPresent
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "echo postStart > /usr/share/message"]
+      preStop:
+        exec:
+          command: ["/bin/sh", "-c", "echo preStop > /usr/share/message"]

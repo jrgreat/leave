@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-svc
+  name: redis-svc
+spec:
+  ports:
+  - port: 6379
+    protocol: TCP
+    targetPort: 6379
+  selector:
+    app: redis-server
+  type: ClusterIP
+
+
+  ---------
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2024-11-18T02:12:30Z"
+  labels:
+    app: redis-svc1
+  name: redis-svc1
+  namespace: default
+  uid: 8ed41897-b6d9-471a-9318-906f3c9988d4
+spec:
+  clusterIP: 10.96.0.0
+  clusterIPs:
+  - 10.96.0.0
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: 6379-6379
+    nodePort: 32769
+    port: 6379
+    protocol: TCP
+    targetPort: 6379
+  selector:
+    app: redis-server
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

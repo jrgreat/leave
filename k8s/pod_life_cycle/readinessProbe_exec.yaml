@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: readiness-httpget-pod
+  namespace: default
+  labels:
+    app: myapp
+    env: test
+spec:
+  containers:
+  - name: readiness-httpget-container
+    image: wangyanglinux/tools:busybox
+    imagePullPolicy: IfNotPresent
+    command: ["/bin/sh", "-c", "touch /tmp/live; sleep 60; rm -rf /tmp/live; slpp 3600"]
+    readinessProbe:
+      exec:
+        command: ["test", "-e", "/tmp/live"]
+      initialDelaySeconds: 1
+      periodSeconds: 3

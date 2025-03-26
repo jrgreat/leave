@@ -1,4 +1,15 @@
 import sys
+import asyncio
+
+async def hello():
+    print("hello,world!")
+    await asyncio.sleep(1)
+    print("hello,again")
+
+async def hello(name):
+    print("hello,world!, from {}".format(name))
+    await asyncio.sleep(1)
+    print("hello,again, from {}".format(name))
 
 def coroutine():
     print("start coroutine!")
@@ -13,8 +24,7 @@ def coroutine():
         finally:
             print("coroutine ended!")
 
-
-if __name__=="__main__":
+def call_corotine():
     my_co = coroutine()
     next(my_co)
     for i in range(11):
@@ -22,3 +32,11 @@ if __name__=="__main__":
         if i == 10:
             my_co.throw(Exception)
     my_co.close()
+
+async def main():
+    L=await asyncio.gather(hello("bob"), hello("Alice"))
+    print(L)
+
+if __name__=="__main__":
+    asyncio.run(main())
+    

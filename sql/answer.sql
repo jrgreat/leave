@@ -42,7 +42,7 @@ on t1.SId = t2.sid
 5. 查询「李」姓老师的数量
 select count(*)
 from Teacher
-where Tname like '李%
+where Tname like '李%'
 
 6. 查询学过「张三」老师授课的同学的信息
 select *
@@ -141,6 +141,31 @@ from Student
 group by Ssex
 
 
+25. 查询每门课程的平均成绩
+select cid, avg(score) as avg_score from SC group by CId order by 2  DESC 
 
 
+26. 查询平均成绩大于等于 85 的所有学生的学号、姓名和平均成绩
+select * from Student s inner join (select SId from SC group by Sid HAVING(avg(score)>=85)) t on s.SId = t.Sid 
+select * from Student s left join (select SId from SC group by Sid HAVING(avg(score)>=85)) t on s.SId = t.Sid where t.sid is not NULL
 
+27. 查询课程名称为「数学」，且分数低于 60 的学生姓名和分数
+select * from Student inner join (select sid, score from SC sc left join Course c on sc.cid = c.cid where c.Cname='数学') scc on Student.sid = scc.sid where scc.score<60
+
+28. 查询所有学生的课程及分数情况（存在学生没成绩，没选课的情况）
+select Student.SId,SC.CId,SC.score from Student  left join SC  on Student.SId=SC.SId 
+
+29. 查询任何一门课程成绩在 70 分以上的姓名、课程名称和分数
+select s.Sname, t1.score, c.Cname from Student s left join (select sid,cid,score from SC where score >= 70) t1 on s.sid = t1.sid left join Course c on c.cid = t1.cid where c.Cname is not NULL
+
+30.查询存在不及格的课程
+select DISTINCT cid from SC where score<60
+
+31.查询课程编号为 01 且课程成绩在 80 分以上的学生的学号和姓名
+select * from Student s left join (select sid, score from SC where cid='01' and score>=80) t1 on s.SId=t1.sid where t1.sid is not NULL
+
+32. 求每门课程的学生人数
+select cid, count(DISTINCT sid) from SC group by cid
+
+33. 成绩不重复，查询选修「张三」老师所授课程的学生中，成绩最高的学生信息及其成绩
+select s.*, sc.score from SC sc left join Student s on sc.sid = s.sid where sc.score = (select max(score) from Teacher t left join Course c on t.TId = c.TId left join SC sc on sc.cid = c.CId left join Student s on s.SId = sc.sid where t.Tname = '张三' group by c.cid)

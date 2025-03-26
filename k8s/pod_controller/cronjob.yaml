@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-demo
+spec:
+  schedule: "*/1 * * * *"
+  completions: 10
+  jobTemplate:
+    spec:
+      completions: 10
+      template:
+        spec:
+          containers:
+          - name: cronjob-demo-container
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the kubernetes cluster
+            imagePullPolicy: IfNotPresent
+          restartPolicy: Never

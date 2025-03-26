@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: myapp-test
+  name: myapp-test-{{ now | date "20060102030405"}}-deploy
+spec:
+  replicas: {{ .Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: myapp-test
+  template:
+    metadata:
+      labels:
+        app: myapp-test
+    spec:
+        containers:
+        - name: myapp
+          image: {{ .Values.image.repository}}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+        tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"

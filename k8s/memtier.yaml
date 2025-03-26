@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: memtier
+  name: memtier
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memtier
+  template:
+    metadata:
+      labels:
+        app: memtier
+    spec:
+      containers:
+      - image: redislabs/memtier_benchmark
+        imagePullPolicy: IfNotPresent
+        name: redis-server
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      

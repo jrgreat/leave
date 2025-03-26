@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-me-exists-demo
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+      - key: app
+        operator: Exists
+  template:
+    metadata:
+      labels:
+        app: spring-k8s
+    spec:
+        containers:
+        - name: rs-me-exists-demo-container
+          image: wangyanglinux/myapp:v1.0
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: GET_HOSTS_FROM
+            value: dns
+            name: zhangsan
+            value: "123"
+          ports:
+          - containerPort: 80

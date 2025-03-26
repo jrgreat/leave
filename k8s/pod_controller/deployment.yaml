@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: myapp-deploy
+  name: myapp-deploy
+spec:
+  selector:
+    matchLabels:
+      app: myapp-deply
+  template:
+    metadata:
+      labels:
+        app: myapp-deply
+    spec:
+        containers:
+        - name: myapp
+          image: wangyanglinux/myapp:v1.0
+          imagePullPolicy: IfNotPresent

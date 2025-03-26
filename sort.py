@@ -48,7 +48,6 @@ def select_sort(data):
                 data[j], data[i] = data[i], data[j]
     print(data)
 
-
 def count_sort(data):
     max = data[0]
     min = data[0]
@@ -92,14 +91,64 @@ def binary_search(data, value, low, high):
     else:
         return binary_search(data, value, low, mid-1)
 
+   
+#维护堆的性质
+#li 输入数组
+#root 堆的根节点位置
+#end 堆的最后一个元素的位置
+def heapify2(li, root, end):
+    lchild = 2 * root + 1
+    while lchild <= end:
+        if lchild + 1 <= end and li[lchild] < li[lchild + 1]:
+            lchild = lchild + 1
+        if li[root] < li[lchild]:
+            li[root], li[lchild] = li[lchild] , li[root]
+            root = lchild
+            lchild = 2 * root + 1
+        else:
+            break
+
+def heap_sort2(li):
+    n = len(li)
+    for i in range((n-1)//2 , -1, -1):
+        heapify(li, i, len(li)-1)   # build the heap
+    for i in range(n-1, 0, -1):
+        li[0], li[i] = li[i], li[0]
+        print("No {} bigger is {}".format(n-i, li[i]))
+        heapify(li, 0, i-1)
+    print(li)
+
+def heapify(li, root, end):
+    lchild = 2 * root + 1
+    rchild = lchild + 1
+    while lchild <= end:
+        if rchild <= end and li[lchild] < li[rchild] :
+            lchild = rchild
+        if li[root] < li[lchild]:
+            li[root], li[lchild] = li[lchild], li[root]
+            root = lchild
+            lchild = 2 * root + 1
+        else:
+            break
+
+def heap_sort(li):
+    n = len(li)
+    for i in range((n-1)//2, -1, -1):
+        heapify(li, i, n-1)
+    for i in range(n-1, 0, -1):
+        li[0],li[i] = li[i], li[0]
+        print("No {} bigger is {}".format(n-i, li[i]))
+        heapify(li, 0, i-1)
+    print(li)
+
 
 if __name__=="__main__":
     the_list = [6,2,3,8,0,1,9,7]
     #bubble_sort(the_list)
     #insert_sort(the_list)
-    select_sort(the_list)
+    #select_sort(the_list)
     #count_sort(the_list)
     #print(insert_search(the_list, 7, 0, 7))
-    print(binary_search(the_list, 9, 0, len(the_list)))
+    print(heap_sort(the_list))
 
 

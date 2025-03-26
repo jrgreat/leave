@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-affinity-preferred
+  namespace: default
+  labels:
+    app: node-affinity-preferred
+spec:
+  containers:
+  - name: node-affinity-preferred-pod
+    image: wangyanglinux/myapp:v1.0
+    imagePullPolicy: IfNotPresent
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: domain
+            operator: In
+            values:
+            - xinxianghf      
+    nodeAffinity:        
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - slave01                

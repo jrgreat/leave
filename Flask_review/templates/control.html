@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="'en">
+    <head>
+        <meta charset=""UTF-8">
+        <title></title>
+    </head>
+<body>
+    {% if  j_age > 18 %}
+     <div>
+        you are older than 18, pass
+     </div>
+     {% elif j_age == 18 %}
+     <div>
+        equal to 18, not available
+     </div>
+     {% else %}
+        younger than 18, not pass!
+    {% endif %}
+    {% for book in j_books %}
+    <p>
+        {{book.name}} : {{book.author}}
+    </p>
+    {% endfor %}
+</body>
+</html>

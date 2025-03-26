@@ -1,0 +1,105 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfspv1
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  nfs:
+    path: /nfsdata/1
+    server: 192.168.121.133
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfspv2
+spec:
+  capacity:
+    storage: 0.9Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  nfs:
+    path: /nfsdata/2
+    server: 192.168.121.133
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfspv3
+spec:
+  capacity:
+    storage: 1.2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  nfs:
+    path: /nfsdata/3
+    server: 192.168.121.133
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfspv4
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  nfs:
+    path: /nfsdata/4
+    server: 192.168.121.133
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfspv5
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  nfs:
+    path: /nfsdata/5
+    server: 192.168.121.133
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfspv6
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs1
+  nfs:
+    path: /nfsdata/6
+    server: 192.168.121.133
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfspv7
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  nfs:
+    path: /nfsdata/7
+    server: 192.168.121.133
+---

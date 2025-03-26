@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: podaffinity
+  name: podaffinity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: podaffinity
+  template:
+    metadata:
+      labels:
+        app: podaffinity
+    spec:
+      containers:
+      - image: docker.io/library/redis
+        imagePullPolicy: IfNotPresent
+        name: podaffinity
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis-server
+  name: redis-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-server
+  template:
+    metadata:
+      labels:
+        app: redis-server
+    spec:
+      containers:
+      - image: docker.io/library/redis
+        imagePullPolicy: IfNotPresent
+        name: redis-server
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - podaffinity
+              topologyKey: kubernetes.io/hostname
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - pod-1
+            topologyKey: kubernetes.io/hostname
+      

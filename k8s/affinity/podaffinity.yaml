@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-affinity-preferred
+  namespace: default
+  labels:
+    app: pod-aff
+spec:
+  containers:
+  - name: myapp
+    image: wangyanglinux/myapp:v1.0
+    imagePullPolicy: IfNotPresent
+  affinity:
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - podaffinity
+          topologyKey: kubernetes.io/hostname
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values:
+            - pod-1
+        topologyKey: kubernetes.io/hostname              

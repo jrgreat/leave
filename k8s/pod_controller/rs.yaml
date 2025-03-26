@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-ml-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rs-ml-demo
+  template:
+    metadata:
+      labels:
+        app: rs-ml-demo
+    spec:
+        containers:
+        - name: rs-ml-demo-container
+          image: wangyanglinux/myapp:v1.0
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: GET_HOSTS_FROM
+            value: dns
+            name: zhangsan
+            value: "123"
+          ports:
+          - containerPort: 80
